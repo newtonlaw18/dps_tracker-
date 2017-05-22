@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+<section>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-heart"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Service Complete</span>
+              <span class="info-box-number">1,410</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-bug"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Open</span>
+              <span class="info-box-number">1,410</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-bell-o"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Work in Progress</span>
+              <span class="info-box-number">1,410</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-thumbs-down"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Problem</span>
+              <span class="info-box-number">93,139</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+      </div>
+    </section>
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">All dispatches</h3>
+    <div class="box-tools">
+      <div class="input-group input-group-sm" style="width: 150px;">
+        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive">
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <th>DPS Number</th>
+          <th>Channel</th>
+          <th>Status</th>
+          <th>Time Updated</th>
+          <th>Action</th>
+        </tr>
+        <% @dispatches.each do |dispatch| %>
+        <tr>
+          <td><%= dispatch.id %></td>
+          <td><%= dispatch.dps_number %></td>
+          <td><%= dispatch.channel %></td>
+          <td>
+            <% if dispatch.status == "Service Complete" || dispatch.status == "Closed" || dispatch.status == "Cancelled" %>
+              <span class="label label-success">
+            <% elsif dispatch.status == "Work in Progress" || dispatch.status == "Customer Deferred" || dispatch.status == "Cancelled" %>
+              <span class="label label-warning">
+            <% else %>
+              <span class="label label-danger">
+            <% end %>
+            <%= dispatch.status %></span>
+          </td>
+          <td><%= dispatch.updated_at.strftime('%b %e, %r') %></td>
+          <td>
+            <span>
+              <%= link_to 'Show', dispatch %>
+              <%= link_to 'Add comment', new_dispatch_comment_path(dispatch_id: dispatch.id) %>
+              <%= link_to 'Edit', edit_dispatch_path(dispatch) %>
+              <%= link_to 'Destroy', dispatch, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </span>
+          </td>
+        </tr>
+        <% end %>
+                
+      </tbody>
+    </table>
+  </div>
+  <div class="box-footer clearfix"  style="text-align: center;">
+    <%= will_paginate @posts %>
+  </div>
+</div>
+
+<%= link_to 'New Dispatch', new_dispatch_path %>
+<a href="/dispatches/new"><button class="btn btn-info" style="margin-left: 30px;"><i class="fa fa-plus"></i> New Dispatch</button></a>

@@ -1,0 +1,40 @@
+<%= form_for(dispatch) do |f| %>
+  <% if dispatch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dispatch.errors.count, "error") %> prohibited this dispatch from being saved:</h2>
+
+      <ul>
+      <% dispatch.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dps_number %>
+    <%= f.text_area :dps_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :channel %>
+    <%= f.select :channel, [['Email','Email'],['Phone','Phone'],['Moxie','Moxie'],['DCCMT','DCCMT']] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, [['Open','Open'],['Problem','Problem'],['Approved','Approved'],['Work in Progress','Work in Progress'],['DSP Assignment Failure','DSP Assignment Failure'],['No Service ETA','No Service ETA'],['No Part ETA','No Part ETA'],['Backlog','Backlog'],['Tech Not Onsite','Tech Not Onsite'],['Customer Deferred','Customer Deferred'],['Customer Unable to Set ETA','Customer Unable to Set ETA'],['Cancelled','Cancelled'],['Closed','Closed'],['Service Complete','Service Complete']] %>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :comments do |comment_form| %>
+      <%= comment_form.label "Comment" %>
+      <%= comment_form.text_field :body %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

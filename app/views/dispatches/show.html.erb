@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dps number:</strong>
+  <%= @dispatch.dps_number %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @dispatch.status %>
+</p>
+
+<% @comments.each do |comment| %>
+	<p><%= comment.body %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_dispatch_path(@dispatch) %> |
+<%= link_to 'Back', dispatches_path %>
