@@ -81,7 +81,7 @@
           <td><%= dispatch.dps_number %></td>
           <td><%= dispatch.channel %></td>
           <td>
-            <% if dispatch.status == "Service Complete" || dispatch.status == "Closed" || dispatch.status == "Cancelled" %>
+            <% if dispatch.status == "Service Complete" || dispatch.status == "Closed"  %>
               <span class="label label-success">
             <% elsif dispatch.status == "Work in Progress" || dispatch.status == "Customer Deferred" || dispatch.status == "Cancelled" %>
               <span class="label label-warning">
